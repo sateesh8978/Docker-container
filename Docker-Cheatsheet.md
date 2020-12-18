@@ -20,12 +20,9 @@ Once a container is created, the execution is managed by the container runtime. 
 
 #### primary components of a container architecture (client, runtime, & registry) are diagrammed below:
 ##### Runtime
-##### Daemon
-##### Registry
-##### Client
-##### Image 
-##### registry
-##### Images
+##### Daemon Registry
+##### Client Image 
+##### registry Images
 ##### Containers
 ##### Remote APILocalor
 
@@ -103,10 +100,13 @@ $ docker rm $(docker ps -q -f “status=exited”)
 ```
 
 9. Execute a new process in an existing container:
-# Execute and access bash inside a WildFly container
+Execute and access bash inside a WildFly container
+```python
 $ docker exec -it mywildfly bash
 docker [CMD] [OPTS] [CONTAINER]
+```
 Command
+```python
 daemon
 attach
 commit
@@ -131,6 +131,7 @@ top
 unpause
 update
 wait
+```
 Run the persistent process that manages containers
 Attach to a running container to view its ongoing output or to control it interactively
 Create a new image from a container’s changes
@@ -157,35 +158,48 @@ Update configuration of one or more containers
 Block until a container stops, then print its exit code
 Description
 5. Tag an image:
-# Creates an image called “myimage” with the tag “v1” for the image jboss/wildfly:latest
+Creates an image called “myimage” with the tag “v1” for the image jboss/wildfly:latest
+```python
 $ docker tag jboss/wildfly myimage:v1
-# Creates a new image with the latest tag
+```
+Creates a new image with the latest tag
+```python
 $ docker tag <image-name> <new-image-name>
-# Creates a new image specifying the “new tag” from an existing image and tag
+```
+Creates a new image specifying the “new tag” from an existing image and tag
+```python
 $ docker tag <image-name>[:tag][username/] <new-image-name>.[:new-tag]
+```
+
 6. Exporting and importing an image to an external file:
-# Export the image to an external file
+Export the image to an external file
+``python
 $ docker save -o <filename>.tar
-# Import an image from an external file
+```
+Import an image from an external file
+```python
 $ docker load -i <filename>.tar
+```
 7 Push an image to a registry:
+```python
 $ docker push [registry/][username/]<image-name>[:tag]
-1.2 Image Related Commands
+```
+### 1.2 Image Related Commands
 Examples
 All examples shown work in Red Hat Enterprise Linux
 1. Build an image using a Dockerfile:
-#Build an image
+Build an image
 $ docker build -t [username/]<image-name>[:tag] <dockerfile-path>
-#Build an image called myimage using the Dockerfile in the same folder where the command was executed
+Build an image called myimage using the Dockerfile in the same folder where the command was executed
 $ docker build -t myimage:latest .
 3: List the images:
 $ docker images
 4: Remove an image from the local registry:
 $ docker rmi [username/]<image-name>[:tag]
 2. Check the history of an image:
-# Check the history of the jboss/wildfly image
+ Check the history of the jboss/wildfly image
 $ docker history jboss/wildfly
-# Check the history of an image
+Check the history of an image
 $ docker history [username/]<image-name>[:tag]
 docker [CMD] [OPTS] [IMAGE]
 build
@@ -262,13 +276,13 @@ command. It starts from a previously existing Base image (through the FROM claus
 This process is very similar to a compilation of a source code into a binary output, but in this case the output of the Dockerfile will be a container image.
 Example Dockerfile
 This example creates a custom WildFly container with a custom administrative user. It also exposes the administrative port 9990 and binds the administrative interface publicly through the parameter ‘bmanagement’.
-# Use the existing WildFly image
+Use the existing WildFly image
 FROM jboss/wildfly
-# Add an administrative user
+Add an administrative user
 RUN /opt/jboss/wildfly/bin/add-user.sh admin Admin#70365 --silent
-#Expose the administrative port
+  Expose the administrative port
 EXPOSE 8080 9990
-#Bind the WildFly management to all IP addresses
+Bind the WildFly management to all IP addresses
 CMD [“/opt/jboss/wildfly/bin/standalong.sh”, “-b”, “0.0.0.0”,
 “-bmanagement”, “0.0.0.0”]
 Command
@@ -277,12 +291,19 @@ Command
 Description
 Command
 Description
-# Build the WildFly image
-$ docker build -t mywildfly .
-#Run a WildFly server
+  
+ Build the WildFly image
+```python
+  $ docker build -t mywildfly .
+  ```
+Run a WildFly server
+```python
 $ docker run -it -p 8080:8080 -p 9990:9990 mywildfly
-#Access the WildFly administrative console and log in with the credentials admin/Admin#70635
+  ```
+Access the WildFly administrative console and log in with the credentials admin/Admin#70635
+```python
 open http://<docker-daemon-ip>:9990 in a browser
+
 Using the example Dockerfile
 FROM
 MAINTAINER
@@ -300,6 +321,7 @@ WORKDIR
 ARG
 ONBUILD
 STOPSIGNAL
+  ```
 Sets the base image for subsequent
 Sets the author field of the generated images
 Execute commands in a new layer on top of the current image and commit the results
@@ -319,6 +341,7 @@ Sets the system call signal that will be sent to the container to exit
 Dockerfile instruction arguments
 Command
 Description
+```python
 $ mkdir -p www/
 $ echo “Server is up” > www/index.html
 $ docker run -d \
@@ -333,25 +356,20 @@ $ curl <container-daemon-ip>:8000
 $ docker ps
 $ docker inspect pythonweb | less
 $ docker exec -it pythonweb bash
+  ```
 Example: Running a web server container
-# Create a directory (if it doesn’t already exist)
-# Make a text file to serve later
-# Run process in a container as a daemon
-# Map port 8000 in container to 8000 on host
-# Name the container “pythonweb”
-# Map container html to host www directory
-# Set working directory to /var/www/html
-# Choose the rhel7/rhel directory
-# Run the Python command for
+Create a directory (if it doesn’t already exist)
+Make a text file to serve later
+Run process in a container as a daemon
+Map port 8000 in container to 8000 on host
+Name the container “pythonweb”
+Map container html to host www directory
+Set working directory to /var/www/html
+Choose the rhel7/rhel directory
+Run the Python command for
 a simple web server listening to port 8000
-# Check that the server is working
-# See that the container is running
-# Inspect the container
-# Open the running container and look inside
-About the authors
-Bachir Chihani, Ph.D. holds an engineering degree from Ecole Superieure d’Informatique (Algeria) as well as a PhD degree in Computer Science from Telecom SudParis (France). Bachir has worked as a data engineer, software engineer, and research engineer for many years. Previously, he worked as a network engineer and got a CCNA Cisco-certification. Bachir has been programming for many years in Scala/Spark, Java EE, Android and Go. He has a keen interest in Open Source technologies particularly in the fields of Automation, Distributed Computing and Software/System Design and he likes sharing his experience through blogging.
-Bachir authored many research papers in the field of Context-Awareness and reviewed many papers for International conferences. He also served as a technical reviewer for many books including Spring Boot in Action (Manning, 2016) and Unified Log Processing (Manning, 2016).
-Rafael Benevides is a Director of Developer Experience at Red Hat. In his current role he helps developers worldwide to be more effective in software development, and he also promotes tools and practices that help them to be more productive. He worked in several fields including application architecture and design. Besides that, he is a member of Apache DeltaSpike PMC - a Duke’s Choice Award winner project. And a speaker in conferences like JUDCon, TDC, JavaOne and Devoxx
-Twitter: @rafabene
-LinkdeIn: https://www.linkedin.com/in/rafaelbenevides
-www.rafabene.com.
+Check that the server is working
+See that the container is running
+Inspect the container
+Open the running container and look inside
+
