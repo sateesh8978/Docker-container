@@ -26,7 +26,7 @@ Once a container is created, the execution is managed by the container runtime. 
 ###### Examples
 All examples shown work in Red Hat Enterprise Linux
 
-1. Run a container in interactive mode: #Run a bash shell inside an image
+##### 1. Run a container in interactive mode: #Run a bash shell inside an image
 ```pythin
 $ docker run -it rhel7/rhel bash
 ```
@@ -35,32 +35,32 @@ Check the release inside a container
 [root@.../]# cat /etc/redhat-release
 ```
 
-2. Run a container in detached mode:
+##### 2. Run a container in detached mode:
 ```yaml
 $ docker run --name mywildfly -d -p 8080:8080 jboss/wildfly
 ```
 
-3. Run a detached container in a previously created container network:
+##### 3. Run a detached container in a previously created container network:
 ```yaml
 $ docker network create mynetwork
 $ docker run --name mywildfly-net -d --net mynetwork \
 -p 8080:8080 jboss/wildfly
 ```
 
-4. Run a detached container mounting a local folder inside the container:
+##### 4. Run a detached container mounting a local folder inside the container:
 ```yaml
 $ docker run --name mywildfly-volume -d \
 -v myfolder/:/opt/jboss/wildfly/standalone/deployments/ \
 -p 8080:8080 jboss/wildflyjboss/wildfly
 ```
 
-5. Follow the logs of a specific container:
+##### 5. Follow the logs of a specific container:
 ```yaml
 $ docker logs -f mywildfly
 $ docker logs -f [container-name|container-id]
 ```
 
-6. List containers:
+##### 6. List containers:
 List only active containers
 ```yaml
 $ docker ps
@@ -70,7 +70,7 @@ List all containers
 $ docker ps -a
 ```
 
-7. Stop a container:
+##### 7. Stop a container:
 Stop a container
 ```yaml
 $ docker stop [container-name|container-id]
@@ -79,7 +79,7 @@ Stop a container (timeout = 1 second)
 ```yaml
 $ docker stop -t1
 ```
-8. Remove a container:
+##### 8. Remove a container:
 Remove a stopped container
 ```yaml
 $ docker rm [container-name|container-id]
@@ -97,7 +97,7 @@ Remove all stopped containers
 $ docker rm $(docker ps -q -f “status=exited”)
 ```
 
-9. Execute a new process in an existing container:
+##### 9. Execute a new process in an existing container:
 Execute and access bash inside a WildFly container
 ```yaml
 $ docker exec -it mywildfly bash
@@ -250,6 +250,24 @@ Access the WildFly administrative console and log in with the credentials admin/
 ```yaml
 open http://<docker-daemon-ip>:9990 in a browser
 ```
+| Command  | Description |
+| ------------- | ------------- |
+| FROM  | Sets the base image for subsequent  |
+| MAINTAINER  | Sets the author field of the generated images  |
+| RUN  | Execute commands in a new layer on top of the current image and commit the results  |
+| CMD  | Allowed only once (if many then last one takes effect)  |
+| LABEL | Adds metadata to an image  |
+| EXPOSE  | Informs container runtime that the container listens on the specified network ports at runtime  |
+| ENV | Sets an environment variable  |
+| ADD | Copy new files, directories, or remote file URLs from into the filesystem of the container  |
+| COPY | Copy new files or directories into the filesystem of the container  |
+| ENTRYPOINT | Allows you to configure a container that will run as an executable  |
+| VOLUME   | Creates a mount point and marks it as holding externally mounted volumes from native host or other containers  |
+| USER    | Sets the username or UID to use when running the image  |
+| WORKDIR | Sets the working directory for any RUN, CMD, ENTRYPOINT, COPY, and ADD commands  |
+| ARG  | Defines a variable that users can pass at build-time to the builder using --build-arg  |
+| ONBUILD | Adds an instruction to be executed later, when the image is used as the base for another build  |
+| STOPSIGNAL | Sets the system call signal that will be sent to the container to exit  |
 
 
 
