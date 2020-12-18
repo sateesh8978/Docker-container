@@ -175,7 +175,7 @@ $ docker tag <image-name>[:tag][username/] <new-image-name>.[:new-tag]
 
 ##### 6. Exporting and importing an image to an external file:
 Export the image to an external file
-``yaml
+```yaml
 $ docker save -o <filename>.tar
 ```
 Import an image from an external file
