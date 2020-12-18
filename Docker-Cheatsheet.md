@@ -15,16 +15,11 @@
 
 ## Introduction
 Containers allow the packaging of your application (and everything that you need to run it) in a “container image”. Inside a container you can include a base operating system, libraries, files and folders, environment variables, volume mount-points, and your application binaries.
-A “container image” is a template for the execution of a container — It means that you can have multiple containers running from the same image, all sharing the same behavior, which promotes the scaling and distribution of the application. These images can be stored in a remote registry to ease the distribution.
-Once a container is created, the execution is managed by the container runtime. You can interact with the container runtime through the “docker” command. The three 
 
-#### primary components of a container architecture (client, runtime, & registry) are diagrammed below:
-##### Runtime
-##### Daemon Registry
-##### Client Image 
-##### registry Images
-##### Containers
-##### Remote APILocalor
+A “container image” is a template for the execution of a container — It means that you can have multiple containers running from the same image, all sharing the same behavior, which promotes the scaling and distribution of the application. These images can be stored in a remote registry to ease the distribution.
+
+Once a container is created, the execution is managed by the container runtime. You can interact with the container runtime through the “docker” command. The three primary components of a container architecture (client, runtime, & registry) are diagrammed below:
+
 
 #### 1. docker CLI
 ##### 1.1 Container Related Commands
@@ -36,7 +31,11 @@ All examples shown work in Red Hat Enterprise Linux
 $ docker run -it rhel7/rhel bash
 ```
 
-#Check the release inside a container [root@.../]# cat /etc/redhat-release
+Check the release inside a container 
+```python
+[root@.../]# cat /etc/redhat-release
+```
+
 2. Run a container in detached mode:
 ```python
 $ docker run --name mywildfly -d -p 8080:8080 jboss/wildfly
@@ -105,10 +104,17 @@ Execute and access bash inside a WildFly container
 $ docker exec -it mywildfly bash
 docker [CMD] [OPTS] [CONTAINER]
 ```
-Command
+
+| Command  | Description |
+| ------------- | ------------- |
+| daemon  | Run the persistent process that manages containers  |
+| attach  | Attach to a running container to view its ongoing output or to control it interactively  |
+
+
+
 ```python
-daemon
-attach
+
+
 commit
 cp
 create
@@ -156,7 +162,7 @@ Display the running processes of a container
 Unpause all processes within a container
 Update configuration of one or more containers
 Block until a container stops, then print its exit code
-Description
+
 5. Tag an image:
 Creates an image called “myimage” with the tag “v1” for the image jboss/wildfly:latest
 ```python
