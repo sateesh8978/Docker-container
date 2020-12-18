@@ -205,14 +205,45 @@ $ docker push [registry/][username/]<image-name>[:tag]
 
 
 #### 1.3 Network related commands
+```yaml
 docker network [CMD] [OPTS]
+```
+| Command  | Description |
+| ------------- | ------------- |
+| connect  | Connects a container to a network  |
+| create  | Creates a new network with the specified name |
+| disconnect | Disconnects a container from a network |
+| inspect | Displays detailed information on a network |
+|ls | Lists all the networks creating by the user |
+|rm | Deletes one or more networks |
 
 
 #### 1.4 Network related commands
+```yaml
+default is https://index.docker.io/v1/
+```
+| Command  | Description |
+| ------------- | ------------- |
+| login  | Log in to a container registry server. If no server is specified then default is used  |
+| logout  | Log out from a container registry server. If no server is specified then default is used  |
+
 #### 1.5 Volume related commands
+```yaml
+docker voulme [CMD] [OPTS]
+```
+| Command  | Description |
+| ------------- | ------------- |
+| create  | Create a volume  |
+| inspect  | Return low-level information on a volume  |
+| ls  | Lists volumes |
+| rm | Removes a volume |
+
 #### 1.6 Related commands
-Default is https://index.docker.io/v1/
-docker volume [CMD] [OPTS]
+| Command  | Description |
+| ------------- | ------------- |
+| events  | Get real time events from the server  |
+| inspect  | Show version information  |
+
 ### 2. Dockerfile
 The Dockerfile provides the instructions to build a container image through the command. It starts from a previously existing Base image (through the FROM clause) followed by any other needed Dockerfile instructions.
 ```yaml
@@ -250,6 +281,7 @@ Access the WildFly administrative console and log in with the credentials admin/
 ```yaml
 open http://<docker-daemon-ip>:9990 in a browser
 ```
+##### Dockerfile instruction arguments
 | Command  | Description |
 | ------------- | ------------- |
 | FROM  | Sets the base image for subsequent  |
