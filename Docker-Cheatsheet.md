@@ -101,7 +101,6 @@ $ docker rm $(docker ps -q -f “status=exited”)
 Execute and access bash inside a WildFly container
 ```yaml
 $ docker exec -it mywildfly bash
-docker [CMD] [OPTS] [CONTAINER]
 ```
 
 | Command  | Description |
