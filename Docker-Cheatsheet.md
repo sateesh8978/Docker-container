@@ -2,63 +2,106 @@
 
 ## Table of Contents
 
-Introduction 
-1 docker CLI 
-1.1 Container Related Commands 
-1.2 Image Related Commands 
-1.3 Network Related Commands 
-1.4 Registry Related Commands 
-1.5 Volume Related Commands 
-1.6 All Related Commands 
-2. Dockerfile 
-About the Authors 
+### Introduction 
+### 1 docker CLI 
+#### 1.1 Container Related Commands 
+#### 1.2 Image Related Commands 
+#### 1.3 Network Related Commands 
+#### 1.4 Registry Related Commands 
+#### 1.5 Volume Related Commands 
+#### 1.6 All Related Commands 
+### 2. Dockerfile 
+#### About the Authors 
 
 ## Introduction
 Containers allow the packaging of your application (and everything that you need to run it) in a “container image”. Inside a container you can include a base operating system, libraries, files and folders, environment variables, volume mount-points, and your application binaries.
 A “container image” is a template for the execution of a container — It means that you can have multiple containers running from the same image, all sharing the same behavior, which promotes the scaling and distribution of the application. These images can be stored in a remote registry to ease the distribution.
-Once a container is created, the execution is managed by the container runtime. You can interact with the container runtime through the “docker” command. The three primary components of a container architecture (client, runtime, & registry) are diagrammed below:
-RuntimeDaemonRegistryClientImage registryImagesContainersRemote APILocalor
-1. docker CLI
-1.1 Container Related Commands
-Examples
+Once a container is created, the execution is managed by the container runtime. You can interact with the container runtime through the “docker” command. The three 
+
+#### primary components of a container architecture (client, runtime, & registry) are diagrammed below:
+##### Runtime
+##### Daemon
+##### Registry
+##### Client
+##### Image 
+##### registry
+##### Images
+##### Containers
+##### Remote APILocalor
+
+#### 1. docker CLI
+##### 1.1 Container Related Commands
+###### Examples
 All examples shown work in Red Hat Enterprise Linux
-1. Run a container in interactive mode:
-#Run a bash shell inside an image
+
+1. Run a container in interactive mode: #Run a bash shell inside an image
+```pythin
 $ docker run -it rhel7/rhel bash
-#Check the release inside a container
-[root@.../]# cat /etc/redhat-release
+```
+
+#Check the release inside a container [root@.../]# cat /etc/redhat-release
 2. Run a container in detached mode:
+```python
 $ docker run --name mywildfly -d -p 8080:8080 jboss/wildfly
+```
+
 3. Run a detached container in a previously created container network:
+```python
 $ docker network create mynetwork
 $ docker run --name mywildfly-net -d --net mynetwork \
 -p 8080:8080 jboss/wildfly
+```
+
 4. Run a detached container mounting a local folder inside the container:
+```python
 $ docker run --name mywildfly-volume -d \
 -v myfolder/:/opt/jboss/wildfly/standalone/deployments/ \
 -p 8080:8080 jboss/wildflyjboss/wildfly
+```
+
 5. Follow the logs of a specific container:
+```python
 $ docker logs -f mywildfly
 $ docker logs -f [container-name|container-id]
+```
+
 6. List containers:
-# List only active containers
+List only active containers
+```python
 $ docker ps
-# List all containers
+```
+List all containers
+```python
 $ docker ps -a
+```
+
 7. Stop a container:
-# Stop a container
+Stop a container
+```python
 $ docker stop [container-name|container-id]
-# Stop a container (timeout = 1 second)
+```
+Stop a container (timeout = 1 second)
+```python
 $ docker stop -t1
+```
 8. Remove a container:
-# Remove a stopped container
+Remove a stopped container
+```python
 $ docker rm [container-name|container-id]
-# Force stop and remove a container
+```
+Force stop and remove a container
+```python
 $ docker rm -f [container-name|container-id]
-# Remove all containers
+```
+Remove all containers
+```python
 $ docker rm -f $(docker ps-aq)
-# Remove all stopped containers
+```
+Remove all stopped containers
+```python
 $ docker rm $(docker ps -q -f “status=exited”)
+```
+
 9. Execute a new process in an existing container:
 # Execute and access bash inside a WildFly container
 $ docker exec -it mywildfly bash
