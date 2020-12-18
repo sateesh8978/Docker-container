@@ -30,7 +30,6 @@ All examples shown work in Red Hat Enterprise Linux
 ```pythin
 $ docker run -it rhel7/rhel bash
 ```
-
 Check the release inside a container 
 ```python
 [root@.../]# cat /etc/redhat-release
@@ -130,7 +129,25 @@ docker [CMD] [OPTS] [CONTAINER]
 | unpause | Unpause all processes within a container |
 | wait    | Block until a container stops, then print its exit code  |
 
-
+### 1.2 Image Related Commands
+#### Examples
+All examples shown work in Red Hat Enterprise Linux
+##### 1. Build an image using a Dockerfile:
+Build an image
+```yaml
+$ docker build -t [username/]<image-name>[:tag] <dockerfile-path>
+```
+Build an image called myimage using the Dockerfile in the same folder where the command was executed
+$ docker build -t myimage:latest .
+3: List the images:
+$ docker images
+4: Remove an image from the local registry:
+$ docker rmi [username/]<image-name>[:tag]
+2. Check the history of an image:
+ Check the history of the jboss/wildfly image
+$ docker history jboss/wildfly
+Check the history of an image
+$ docker history [username/]<image-name>[:tag]
 5. Tag an image:
 Creates an image called “myimage” with the tag “v1” for the image jboss/wildfly:latest
 ```python
@@ -158,23 +175,7 @@ $ docker load -i <filename>.tar
 ```python
 $ docker push [registry/][username/]<image-name>[:tag]
 ```
-### 1.2 Image Related Commands
-Examples
-All examples shown work in Red Hat Enterprise Linux
-1. Build an image using a Dockerfile:
-Build an image
-$ docker build -t [username/]<image-name>[:tag] <dockerfile-path>
-Build an image called myimage using the Dockerfile in the same folder where the command was executed
-$ docker build -t myimage:latest .
-3: List the images:
-$ docker images
-4: Remove an image from the local registry:
-$ docker rmi [username/]<image-name>[:tag]
-2. Check the history of an image:
- Check the history of the jboss/wildfly image
-$ docker history jboss/wildfly
-Check the history of an image
-$ docker history [username/]<image-name>[:tag]
+
 docker [CMD] [OPTS] [IMAGE]
 build
 history
